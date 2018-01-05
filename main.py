@@ -57,9 +57,9 @@ class piece(sprite):
         #        X#
         elif rot="R":
             if shape=="I":
-                self.pixels=[[0,2,8],[0,0,8],[0,-1,8],[0,-2,5]]
+                self.pixels=[[1,2,8],[1,0,8],[1,-1,8],[1,-2,5]]
                 #
-        #       X
+        #      X#
                 #
                 #
             elif shape=="J":
@@ -72,9 +72,10 @@ class piece(sprite):
                   #
                 #X#
             elif shape=="S":
-                self.pixels=[[-1,0,4],[0,0,4],[0,1,4],[1,1,4]]
-                 ##
-                #X
+                self.pixels=[[0,1,4],[0,0,4],[0,1,4],[1,-1,4]]
+                 #
+       #         X#
+                  #
             elif shape=="T":
                 self.pixels=[[0,1,9],[0,0,9],[1,0,9],[0,-1,9]]
                 #
@@ -86,6 +87,6 @@ class piece(sprite):
             #   X#
                 #
         elif rot="2":
-            #blah
+            
         elif rot="L":
             #blah
