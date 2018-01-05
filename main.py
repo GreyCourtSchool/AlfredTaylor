@@ -29,8 +29,10 @@ class piece(sprite):
     def updateShape(self,sha,rot)
         #This long if series sets the pixels of the sprite according to the shape with
         #a lil diagram next to it # is a block and X is the centre
+
         if shape="O": #If the shape is an O piece there is no need for rotation
             self.pixels=[[0,0,6],[1,0,6],[0,1,6],[1,1,6]]
+        #Normal rotation
         elif rot="0":
             if shape=="I":
                 self.pixels=[[-1,0,8],[0,0,8],[1,0,8],[2,0,5]]
@@ -55,6 +57,8 @@ class piece(sprite):
                 self.pixels=[[-1,1,3],[0,0,3],[0,1,3],[1,0,3]]
                 ##
         #        X#
+
+        #Clockwise rotation
         elif rot="R":
             if shape=="I":
                 self.pixels=[[1,2,8],[1,0,8],[1,-1,8],[1,-2,5]]
@@ -86,7 +90,70 @@ class piece(sprite):
                  #
             #   X#
                 #
+
+        # Double rotation
         elif rot="2":
-            
+            if shape=="I":
+                self.pixels=[[-1,-1,8],[0,-1,8],[1,-1,8],[2,-1,8]]
+        #       X
+               ####
+            elif shape=="J":
+                self.pixels=[[-1,0,5],[0,0,5],[1,0,5],[2,0,5]]
+                #X#
+                  #
+            elif shape=="L":
+                self.pixels=[[-1,-1,7],[-1,0,7],[0,0,7],[1,0,7]]
+                #X#
+                #
+            elif shape=="S":
+                self.pixels=[[-1,-1,4],[0,-1,4],[0,0,4],[1,0,4]]
+        #        X#
+                ##
+            elif shape=="T":
+                self.pixels=[[-1,0,9],[0,0,9],[0,-1,9],[1,0,-9]]
+                #X#
+                 #
+            elif shape=="Z":
+                self.pixels=[[-1,0,3],[0,0,3],[0,-1,3],[1,-1,3]]
+                #X
+                 ##
+
+        # Anticlockwise rotation
         elif rot="L":
-            #blah
+            if shape=="I":
+                self.pixels=[[0,1,8],[0,0,8],[0,-1,8],[0,-2,8]]
+                #
+        #       X
+                #
+                #
+            elif shape=="J":
+                self.pixels=[[0,1,5],[0,0,5],[0,-1,5],[-1,-1,5]]
+                #
+        #       X
+               ##
+            elif shape=="L":
+                self.pixels=[[-1,1,7],[0,1,7],[0,0,7],[0,-1,7]]
+                ##
+        #        X
+                 #
+            elif shape=="S":
+                self.pixels=[[-1,1,4],[-1,0,4],[0,0,4],[0,-1,4]]
+                #
+                #X
+                 #
+            elif shape=="T":
+                self.pixels=[[0,1,9],[-1,0,9],[0,0,9],[0,-1,9]]
+                 #
+                #X
+                 #
+            elif shape=="Z":
+                self.pixels=[[0,1,3],[0,0,3],[-1,0,3],[-1,-1,3]]
+                 #
+                #X
+                #
+
+def drawShape(piece):
+    for i in range(0,len(piece.pixels)-1):
+        updatePixel(piece.pixels[i])
+
+
