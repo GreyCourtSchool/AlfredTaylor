@@ -18,15 +18,23 @@ class sprite:
         self.name=name
         self.pixels=pixels
         self.location=location
+    def drawSprite():
+        for i in range(0,len(self.pixels)-1):
+            updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[self.pixels[i][3]])
+            #updates the pixels at the co oridinates of the pixels relative to the position of the piece and makes them the color of the piece
+    def eraseSprite():
+        for i in range(0,len(self.pixels)-1):
+            updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[0])
+            #updates all the pixels at the co ordinates relative to the position to 0 making them black
 
 class piece(sprite):
-    def __init__(self,name,shape,location,rotation):
+    def __init__(self,name,shape,location,rot):
         self.name=name
         self.shape=shape
         self.location=location
         self.rotation="0"
         self.updatePixels(shape,"0")
-    def updateShape(self,sha,rot)
+    def updateShape(self,shape,rot)
         #This long if series sets the pixels of the sprite according to the shape with
         #a lil diagram next to it # is a block and X is the centre
 
@@ -152,8 +160,190 @@ class piece(sprite):
                 #X
                 #
 
-def drawShape(piece):
-    for i in range(0,len(piece.pixels)-1):
-        updatePixel(piece.pixels[i])
-
-
+class letter(piece):
+    #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
+    # 0-A 1-B 2-C 3-D 4-E 5-F 6-G 7-H 8-I 9-J 10-K 11-L 12-M 13-N 14-O 15-P 16-Q 17-R 18-S 19-T 20-U 21-V 22-W 23-X 24-Y 25-Z
+    #borrowed from https://robey.lag.net/2010/01/23/tiny-monospace-font.html
+    def updatePixels(shape):
+        if shape==0:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[1,4,1]]
+             #
+            # #
+            ###
+            # #
+        #   X #
+        if shape==1:
+            self.pixels=[[0,0,1],[1,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1]]
+            ##
+            # #
+            ##
+            # #
+        #   X#
+        if shape==2:
+            self.pixels=[[1,0,1],[2,0,1],[0,1,1],[0,2,1],[0,3,1],[1,4,1],[2,4,1]]
+             ##
+            #
+            #
+            #
+        #   X##
+        if shape==3:
+            self.pixels=[[0,0,1],[1,0,1],[0,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1]]
+            ##
+            # #
+            # #
+            # #
+        #   X#
+        if shape==4:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+            #
+            ###
+            #
+        #   X##
+        if shape==5:
+            self.pixels=[[0,0,1],[0,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+            #
+            ###
+            #
+        #   X
+        if shape==6:
+            self.pixels=[[1,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[1,4,1],[2,4,1]]
+             ##
+            #
+            ###
+            # #
+        #   X##
+        if shape==7:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+            ###
+            # #
+        #   X #
+        if shape==8:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[1,1,1],[1,2,1],[1,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+             #
+             #
+             #
+        #   X##
+        if shape==9:
+            self.pixels=[[1,0,1],[0,1,1],[2,1,1],[2,2,1],[2,3,1,],[2,4,1]]
+              #
+              #
+              #
+            # #
+        #   X#
+        if shape==10:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+            ##
+            # #
+        #   X #
+        if shape==11:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[0,2,1],[0,3,1],[0,4,1]]
+            #
+            #
+            #
+            #
+        #   X##
+        if shape==12:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[1,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            ###
+            ###
+            # #
+        #   X #
+        if shape==13:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[1,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[1,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            ###
+            ###
+            ###
+        #   X #
+        if shape==14:
+            self.pixels=[[1,0,1],[0,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[1,4,1]]
+             #
+            # #
+            # #
+            # #
+        #   X#
+        if shape==15:
+            self.pixels=[[0,0,1],[0,1,1],[0,2,1],[1,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1]]
+            ##
+            # #
+            ##
+            #
+        #   X
+        if shape==16:
+            self.pixels=[[1,0,1],[2,0,1],[0,1,1],[1,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[1,4,1]]
+             #
+            # #
+            # #
+            ###
+        #   X##
+        if shape==17:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[1,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1]]
+            ##
+            # #
+            ###
+            ##
+        #   X #
+        if shape==18:
+            self.pixels=[[0,0,1],[1,0,1],[2,1,1],[1,2,1],[0,3,1],[1,4,1],[2,4,1]]
+             ##
+            #
+             #
+              #
+        #   X#
+        if shape==19:
+            self.pixels=[[1,0,1],[1,1,1],[1,2,1],[1,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+             #
+             #
+             #
+        #   X#
+        if shape==20:
+            self.pixels=[[1,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+            # #
+            # #
+             ##
+        if shape==21:
+            self.pixels=[[1,0,1],[1,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+            # #
+             #
+        #   X#
+        if shape==22:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[1,1,1].[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1].[2,4,1]]
+            # #
+            # #
+            ###
+            ###
+        #   X #
+        if shape==23:
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[1,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+             #
+            # #
+        #   X #
+        if shape==24:
+            self.pixels=[[1,0,1],[1,1,1],[1,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+             #
+             #
+        #   X#
+        if shape==25:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[1,2,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+              #
+             #
+            #
+        #   X##
