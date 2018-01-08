@@ -1,5 +1,6 @@
 import serial
 def updatePixel(x,y,colorcode):
+    print("Not implemented")
     #running arduino code using the pi (not sure about implementation yet)
     #COLOR CODES:
     #1 Empty
@@ -34,14 +35,14 @@ class piece(sprite):
         self.location=location
         self.rotation="0"
         self.updatePixels(shape,"0")
-    def updateShape(self,shape,rot)
+    def updateShape(self,shape,rot):
         #This long if series sets the pixels of the sprite according to the shape with
         #a lil diagram next to it # is a block and X is the centre
 
-        if shape="O": #If the shape is an O piece there is no need for rotation
+        if shape=="O": #If the shape is an O piece there is no need for rotation
             self.pixels=[[0,0,6],[1,0,6],[0,1,6],[1,1,6]]
         #Normal rotation
-        elif rot="0":
+        elif rot=="0":
             if shape=="I":
                 self.pixels=[[-1,0,8],[0,0,8],[1,0,8],[2,0,5]]
                 #X##
@@ -67,7 +68,7 @@ class piece(sprite):
         #        X#
 
         #Clockwise rotation
-        elif rot="R":
+        elif rot=="R":
             if shape=="I":
                 self.pixels=[[1,2,8],[1,0,8],[1,-1,8],[1,-2,5]]
                 #
@@ -100,7 +101,7 @@ class piece(sprite):
                 #
 
         # Double rotation
-        elif rot="2":
+        elif rot=="2":
             if shape=="I":
                 self.pixels=[[-1,-1,8],[0,-1,8],[1,-1,8],[2,-1,8]]
         #       X
@@ -127,7 +128,7 @@ class piece(sprite):
                  ##
 
         # Anticlockwise rotation
-        elif rot="L":
+        elif rot=="L":
             if shape=="I":
                 self.pixels=[[0,1,8],[0,0,8],[0,-1,8],[0,-2,8]]
                 #
@@ -320,7 +321,7 @@ class letter(piece):
              #
         #   X#
         if shape==22:
-            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[1,1,1].[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1].[2,4,1]]
+            self.pixels=[[0,0,1],[2,0,1],[0,1,1],[1,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
             # #
             # #
             ###
