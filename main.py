@@ -19,11 +19,11 @@ class sprite:
         self.name=name
         self.pixels=pixels
         self.location=location
-    def drawSprite():
+    def drawSprite(self):
         for i in range(0,len(self.pixels)-1):
             updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[self.pixels[i][3]])
             #updates the pixels at the co oridinates of the pixels relative to the position of the piece and makes them the color of the piece
-    def eraseSprite():
+    def eraseSprite(self):
         for i in range(0,len(self.pixels)-1):
             updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[0])
             #updates all the pixels at the co ordinates relative to the position to 0 making them black
@@ -165,7 +165,7 @@ class letter(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
     # 0-A 1-B 2-C 3-D 4-E 5-F 6-G 7-H 8-I 9-J 10-K 11-L 12-M 13-N 14-O 15-P 16-Q 17-R 18-S 19-T 20-U 21-V 22-W 23-X 24-Y 25-Z
     #borrowed from https://robey.lag.net/2010/01/23/tiny-monospace-font.html
-    def updatePixels(shape):
+    def updatePixels(self,shape):
         if shape==0:
             self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[1,4,1]]
              #
@@ -348,3 +348,18 @@ class letter(piece):
              #
             #
         #   X##
+        
+def drawScreen(screen):
+
+
+
+
+
+
+
+####################
+####MAIN PROGRAM####
+####################
+objects=[]
+drawScreen("menu")
+
