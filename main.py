@@ -161,7 +161,7 @@ class piece(sprite):
                 #X
                 #
 
-class letter(piece):
+class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
     # 0-A 1-B 2-C 3-D 4-E 5-F 6-G 7-H 8-I 9-J 10-K 11-L 12-M 13-N 14-O 15-P 16-Q 17-R 18-S 19-T 20-U 21-V 22-W 23-X 24-Y 25-Z
     #borrowed from https://robey.lag.net/2010/01/23/tiny-monospace-font.html
@@ -348,9 +348,83 @@ class letter(piece):
              #
             #
         #   X##
-        
-def drawScreen(screen):
-
+        if shape==26:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]
+            ###
+            # #
+            # #
+            # #
+        #   X##
+        if shape==27:
+            self.pixels=[[1,0,1],[1,1,1],[1,2,1],[1,3,1],[1,4,1]]
+             #
+             #
+             #
+             #
+        #   X#
+        if shape==28:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[0,2,1],[1,2,1][2,2,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+              #
+            ###
+            #  
+        #   X##
+        if shape==29:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[2,1,1],[1,2,1],[2,2,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+              #
+             ##
+              #
+        #   X##
+        if shape==30:
+            self.pixels=[[2,0,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[2,4,1]]
+            # #
+            # #
+            ###
+              #
+        #   X #
+        if shape==31:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+            #
+            ###
+              #
+        #   X##
+        if shape==32:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[2,2,1],[0,3,1],[1,4,1],[2,4,1]]
+             ##
+            #
+            ###
+            # #
+        #   X##
+        if shape==33:
+            self.pixels=[[0,0,1],[0,1,1],[1,2,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+              #
+             #
+            #
+        #   X
+        if shape=34:
+            self.pixels=[[0,0,1],[1,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+            # #
+            ###
+            # #
+        #   X##
+        if shape=35:
+            self.pixels=[[0,0,1],[1,0,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
+            ###
+            # #
+            ###
+              #
+        #   X#
+def loadScreen(screen):
+  if screen=="menu":
+    items=[piece("gameSelect","T",[4,13],0),piece()]
+  if screen="game":
+    ###
+  if screen=="scores":
+    ###
 
 
 
@@ -360,6 +434,4 @@ def drawScreen(screen):
 ####################
 ####MAIN PROGRAM####
 ####################
-objects=[]
-drawScreen("menu")
-
+objects=[loadScreen("menu")]
