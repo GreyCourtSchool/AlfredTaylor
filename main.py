@@ -419,15 +419,22 @@ class character(piece):
               #
         #   X#
 
+
+
+
+
 def loadScreen(screen):
     if screen=="menu":
         items=[piece("gameSelect","T",[4,13],0),piece("pointer","T",[4,11],0),character("scoreSelect",18,[4,3],0)]
     if screen="game":
-    ###
+        items=[]
+        items.append(sprite("grid",[],[0,0])
+        
   if screen=="scores":
-    ###
+    ###CYCLE 3
 
-
+def waitForInput(time): #Returns any buttons pressed after time T
+    
 
 
 
