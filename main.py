@@ -1,4 +1,6 @@
 import serial
+import evdev
+
 def updatePixel(x,y,colorcode):
     print("Not implemented")
     #running arduino code using the pi (not sure about implementation yet)
@@ -12,6 +14,7 @@ def updatePixel(x,y,colorcode):
     #7 Orange L
     #8 Cyan I
     #9 Purple T
+
 class sprite:
     #sprite is defined with a name, a list of pixels (each with x,y,color values)
     #and a location (x,y) value
@@ -34,7 +37,7 @@ class piece(sprite):
         self.shape=shape
         self.location=location
         self.rotation="0"
-        self.updatePixels(shape,"0")
+        self.updateShape(shape,"0")
     def updateShape(self,shape,rot):
         #This long if series sets the pixels of the sprite according to the shape with
         #a lil diagram next to it # is a block and X is the centre
@@ -42,7 +45,7 @@ class piece(sprite):
         if shape=="O": #If the shape is an O piece there is no need for rotation
             self.pixels=[[0,0,6],[1,0,6],[0,1,6],[1,1,6]]
         #Normal rotation
-        elif rot=="0":
+        elif rot==0:
             if shape=="I":
                 self.pixels=[[-1,0,8],[0,0,8],[1,0,8],[2,0,5]]
                 #X##
@@ -68,7 +71,7 @@ class piece(sprite):
         #        X#
 
         #Clockwise rotation
-        elif rot=="R":
+        elif rot==1:
             if shape=="I":
                 self.pixels=[[1,2,8],[1,0,8],[1,-1,8],[1,-2,5]]
                 #
@@ -101,7 +104,7 @@ class piece(sprite):
                 #
 
         # Double rotation
-        elif rot=="2":
+        elif rot==2:
             if shape=="I":
                 self.pixels=[[-1,-1,8],[0,-1,8],[1,-1,8],[2,-1,8]]
         #       X
@@ -128,7 +131,7 @@ class piece(sprite):
                  ##
 
         # Anticlockwise rotation
-        elif rot=="L":
+        elif rot==3:
             if shape=="I":
                 self.pixels=[[0,1,8],[0,0,8],[0,-1,8],[0,-2,8]]
                 #
@@ -160,12 +163,17 @@ class piece(sprite):
                  #
                 #X
                 #
+    def checkTranslation(self,grid,vector):
+        #checks if a piece can be moved
+    def translatePiece(self,grid,vector):
+        #Translates piece
+    def rotatePiece(self,grid,)
 
 class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
     # 0-A 1-B 2-C 3-D 4-E 5-F 6-G 7-H 8-I 9-J 10-K 11-L 12-M 13-N 14-O 15-P 16-Q 17-R 18-S 19-T 20-U 21-V 22-W 23-X 24-Y 25-Z
     #borrowed from https://robey.lag.net/2010/01/23/tiny-monospace-font.html
-    def updatePixels(self,shape):
+    def updateShape(self,shape,0):
         if shape==0:
             self.pixels=[[0,0,1],[2,0,1],[0,1,1],[2,1,1],[0,2,1],[1,2,1],[2,2,1],[0,3,1],[2,3,1],[1,4,1]]
              #
@@ -367,7 +375,7 @@ class character(piece):
             ###
               #
             ###
-            #  
+            #
         #   X##
         if shape==29:
             self.pixels=[[0,0,1],[1,0,1],[2,0,1],[2,1,1],[1,2,1],[2,2,1],[2,3,1],[0,4,1],[1,4,1],[2,4,1]]
@@ -422,26 +430,33 @@ class character(piece):
 
 
 
+def waitForInput(device,T): #Returns any buttons pressed after time T, if T is 0 it waits indefinitely
 
-def loadScreen(screen):
-    if screen=="menu":
-        items=[piece("gameSelect","T",[4,13],0),piece("pointer","T",[4,11],0),character("scoreSelect",18,[4,3],0)]
-    if screen="game":
+def runMenu:
+    items=[piece("gameSelect","T",[4,13],0),piece("pointer","T",[4,11],0),character("scoreSelect",18,[4,3],0)]
+    for object in items:
+        object.drawSprite()
+    selected="none"
+    while selected="none":
+        controlinput=waitForInput(gamePad,0)
+        if controlinput
+
+    if selected="game":
         items=[]
         items.append(sprite("grid",[],[0,0])
-        
-  if screen=="scores":
-    ###CYCLE 3
+        ###CYCLE 2
+    if selected=="scores":
+        ###CYCLE 3
 
-def waitForInput(time): #Returns any buttons pressed after time T
-    
-
-
-
+    for object in items:
+        object.eraseSprite:
+        items.remove(object)
 
 
 ####################
 ####MAIN PROGRAM####
 ####################
-objects=[loadScreen("menu")]
-                         
+
+ gamePad=evdev.InputDevice('PATH TO DEVICE') #Placeholder path to device /dev/input/eventN
+while True:
+runMenu()
