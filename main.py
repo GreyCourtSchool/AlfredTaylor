@@ -22,14 +22,12 @@ class sprite:
         self.name=name
         self.pixels=pixels
         self.location=location
-    def drawSprite(self):
-        for i in range(0,len(self.pixels)-1):
-            updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[self.pixels[i][3]])
-            #updates the pixels at the co oridinates of the pixels relative to the position of the piece and makes them the color of the piece
-    def eraseSprite(self):
-        for i in range(0,len(self.pixels)-1):
-            updatePixel([self.pixels[i][1]+self.location[1]],[self.pixels[i][2]+self.location[2]],[0])
-            #updates all the pixels at the co ordinates relative to the position to 0 making them black
+    def drawSprite(self):#updates the pixels at the co oridinates of the pixels relative to the position of the piece and makes them the color of the piece
+        for pixel in self.pixels:
+            updatePixel(pixel[0]+self.location[0],pixel[1]+self.location[1],pixel[2])
+    def eraseSprite(self):#updates all the pixels at the co ordinates relative to the position to 0 making them black
+        for pixel in self.pixels:
+            updatePixel(pixel[0]+self.location[0],pixel[1]+self.location[1],0)
 
 class piece(sprite):
     def __init__(self,name,shape,location,rot):
@@ -41,7 +39,6 @@ class piece(sprite):
     def updateShape(self,shape,rot):
         #This long if series sets the pixels of the sprite according to the shape with
         #a lil diagram next to it # is a block and X is the centre
-
         if shape=="O": #If the shape is an O piece there is no need for rotation
             self.pixels=[[0,0,6],[1,0,6],[0,1,6],[1,1,6]]
         #Normal rotation
@@ -164,11 +161,23 @@ class piece(sprite):
                 #X
                 #
     def checkTranslation(self,grid,vector):
+        for pixel1 in self.pixels:
+            x1=pixel1[0]+self.location[0]+vector[0]
+            y1=pixel1[1]+self.location[1]+vector[1]
+            for pixel2 in grid.pixels:
+                x2=pixel2[0]+grid.location[0]
+                y2=pixel2[1]+grid.location[1]
+                if (x1==x2 and y1==y2):
+                    return False
+        return True
         #checks if a piece can be moved
-    def translatePiece(self,grid,vector):
+    def translatePiece(self,vector):
+        self.eraseSprite()
+        self.location=[location[0]+vector[0],location[1]+vector[1]]
+        self.drawSprite()
         #Translates piece
     def rotatePiece(self,grid,)
-
+        ###CYCLE 2
 class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
     # 0-A 1-B 2-C 3-D 4-E 5-F 6-G 7-H 8-I 9-J 10-K 11-L 12-M 13-N 14-O 15-P 16-Q 17-R 18-S 19-T 20-U 21-V 22-W 23-X 24-Y 25-Z
@@ -430,17 +439,25 @@ class character(piece):
 
 
 
-def waitForInput(device,T): #Returns any buttons pressed after time T, if T is 0 it waits indefinitely
+def waitForInput(device,T):
+    #Returns any buttons pressed after time T, if T is 0 it waits indefinitely
 
 def runMenu:
-    items=[piece("gameSelect","T",[4,13],0),piece("pointer","T",[4,11],0),character("scoreSelect",18,[4,3],0)]
+    items=[piece("gameSelect","T",[4,13],0),piece("pointer","I",[4,11],0),character("scoreSelect",18,[4,3],0)]
     for object in items:
         object.drawSprite()
-    selected="none"
-    while selected="none":
-        controlinput=waitForInput(gamePad,0)
-        if controlinput
-
+    selected="game"
+    confirmed=False
+    while not confirmed:
+        userin=waitForInput(gamePad,0)
+        if (userin=="GamepadDownPlaceholder" and selected=="game"):
+            items[1].translatePiece([0,-10])
+            selected="game"
+        if (userin=="GamePadUpPlaceholder" and selected=="scores"):
+            items[1].translatePiece([0,10])
+            selected="scores"
+        if userin=="GamePadAPlaceholder":
+            confirmed==True
     if selected="game":
         items=[]
         items.append(sprite("grid",[],[0,0])
