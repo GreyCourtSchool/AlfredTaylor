@@ -173,10 +173,11 @@ class piece(sprite):
         #checks if a piece can be moved
     def translatePiece(self,vector):
         self.eraseSprite()
-        self.location=[location[0]+vector[0],location[1]+vector[1]]
+        self.location[0]+=vector[0]
+        self.location[1]+=vector[1]
         self.drawSprite()
         #Translates piece
-    def rotatePiece(self,grid,)
+    def rotatePiece(self,grid,dir)
         ###CYCLE 2
 class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
@@ -438,7 +439,10 @@ class character(piece):
 
 
 
-
+def removeSprites(items):
+    for item in items:
+        item.eraseSprite()
+    items=[]
 def waitForInput(device,T):
     #Returns any buttons pressed after time T, if T is 0 it waits indefinitely
 
@@ -452,15 +456,15 @@ def runMenu:
         userin=waitForInput(gamePad,0)
         if (userin=="GamepadDownPlaceholder" and selected=="game"):
             items[1].translatePiece([0,-10])
-            selected="game"
+            selected="scores"
         if (userin=="GamePadUpPlaceholder" and selected=="scores"):
             items[1].translatePiece([0,10])
-            selected="scores"
+            selected="game"
         if userin=="GamePadAPlaceholder":
             confirmed==True
+    removeSprites(items)
+
     if selected="game":
-        items=[]
-        items.append(sprite("grid",[],[0,0])
         ###CYCLE 2
     if selected=="scores":
         ###CYCLE 3
