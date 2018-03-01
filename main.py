@@ -1,5 +1,4 @@
-import serial
-import evdev
+import serial,evdev,time
 
 def updatePixel(x,y,colorcode):
     print("Not implemented")
@@ -177,7 +176,7 @@ class piece(sprite):
         self.location[1]+=vector[1]
         self.drawSprite()
         #Translates piece
-    def rotatePiece(self,grid,dir)
+    def rotatePiece(self,grid,dir):
         ###CYCLE 2
 class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
@@ -443,8 +442,42 @@ def removeSprites(items):
     for item in items:
         item.eraseSprite()
     items=[]
-def waitForInput(device,T):
-    #Returns any buttons pressed after time T, if T is 0 it waits indefinitely
+def waitForInput(gamepad,t):
+    #Returns any buttons pressed after time t, if t is 0 it waits indefinitely
+    timeDone=False
+    inputRecieved=False
+    start=time.clock()
+    while(not timeDone or not inputRecieved):
+            event=gamepad.read_one()
+            if event!=None:
+                    if event.type!=0 and event.type!=4:
+                            padin="_"
+                            if (event.type==1 and event.value!=0L):
+                                    if event.code==304:
+                                            padin="A"
+                                    elif event.code==305:
+                                            padin="B"
+                                    elif event.code==312:
+                                            padin="SELECT"
+                                    elif event.code==313:
+                                            padin="START"
+                            elif (event.type==3 and event.value!=127L):
+                                    if event.code==1:
+                                            if event.value==0L:
+                                                    padin="UP"
+                                            elif event.value==255L:
+                                                    padin="DOWN"
+                                    elif event.code==0:
+                                            if event.value==0L:
+                                                    padin="LEFT"
+                                            if event.value==255L:
+                                                    padin="RIGHT"
+                            inputRecieved=True
+                            return(padin)
+            if t!=0:
+                    if (time.clock()-start>t):
+                            timeDone=True
+                            return(None)
 
 def runMenu:
     items=[piece("gameSelect","T",[4,13],0),piece("pointer","I",[4,11],0),character("scoreSelect",18,[4,3],0)]
@@ -454,13 +487,13 @@ def runMenu:
     confirmed=False
     while not confirmed:
         userin=waitForInput(gamePad,0)
-        if (userin=="GamepadDownPlaceholder" and selected=="game"):
+        if (userin=="DOWN" and selected=="game"):
             items[1].translatePiece([0,-10])
             selected="scores"
-        if (userin=="GamePadUpPlaceholder" and selected=="scores"):
+        if (userin=="UP" and selected=="scores"):
             items[1].translatePiece([0,10])
             selected="game"
-        if userin=="GamePadAPlaceholder":
+        if userin=="A":
             confirmed==True
     removeSprites(items)
 
