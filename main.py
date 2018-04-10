@@ -38,15 +38,13 @@ class sprite:
     def drawSprite(self):#updates the pixels at the co oridinates of the pixels relative to the position of the piece and makes them the color of the piece
         for pixel in self.pixels:
             updatePixel(pixel[0]+self.location[0],pixel[1]+self.location[1],pixel[2])
+        os.system('clear')
         for i in reversed(temparray):
             sys.stdout.write(i)
         print("\n")
     def eraseSprite(self):#updates all the pixels at the co ordinates relative to the position to 0 making them black
         for pixel in self.pixels:
             updatePixel(pixel[0]+self.location[0],pixel[1]+self.location[1],1)
-        for i in reversed(temparray):
-            sys.stdout.write(i)
-        print("\n")
 
 class piece(sprite):
     def __init__(self,name,shape,location,rot):
@@ -64,10 +62,10 @@ class piece(sprite):
         #Normal rotation
         elif self.rot==0:
             if self.shape=="I":
-                self.pixels=[[-1,0,8],[0,0,8],[1,0,8],[2,0,5]]
+                self.pixels=[[-1,0,8],[0,0,8],[1,0,8],[2,0,8]]
                 #X##
             elif self.shape=="J":
-                self.pixels=[[-1,1,5],[-1,0,5],[0,0,5],[-1,0,5]]
+                self.pixels=[[-1,1,5],[-1,0,5],[0,0,5],[1,0,5]]
                 #
                 #X#
             elif self.shape=="L":
@@ -90,7 +88,7 @@ class piece(sprite):
         #Clockwise rotation
         elif self.rot==1:
             if self.shape=="I":
-                self.pixels=[[1,2,8],[1,0,8],[1,-1,8],[1,-2,5]]
+                self.pixels=[[1,2,8],[1,1,8],[1,0,8],[1,-1,8]]
                 #
         #      X#
                 #
@@ -101,11 +99,13 @@ class piece(sprite):
         #       X
                 #
             elif self.shape=="L":
-                self.pixels=[[-1,0,7],[0,0,7],[1,0,7],[1,1,7]]
-                  #
-                #X#
+                self.pixels=[[0,-1,7],[1,-1,7],[0,0,7],[0,1,7]]
+                #
+        #       X
+                ##
+                
             elif self.shape=="S":
-                self.pixels=[[0,1,4],[0,0,4],[0,1,4],[1,-1,4]]
+                self.pixels=[[0,1,4],[0,0,4],[1,0,4],[1,-1,4]]
                  #
        #         X#
                   #
@@ -127,7 +127,7 @@ class piece(sprite):
         #       X
                ####
             elif self.shape=="J":
-                self.pixels=[[-1,0,5],[0,0,5],[1,0,5],[2,0,5]]
+                self.pixels=[[-1,0,5],[0,0,5],[1,0,5],[-1,1,5]]
                 #X#
                   #
             elif self.shape=="L":
@@ -161,7 +161,7 @@ class piece(sprite):
         #       X
                ##
             elif self.shape=="L":
-                self.pixels=[[-1,1,7],[0,1,7],[0,0,7],[0,-1,7]]
+                self.pixels=[[0,-1,7],[0,0,7],[-1,1,7],[0,1,7]]
                 ##
         #        X
                  #
@@ -201,6 +201,7 @@ class piece(sprite):
         #Translates piece
     def rotatePiece(self,grid,rotdir):
         if (self.shape!="O"):
+            #bigtests shows all the tests for each type of rotation for each type of shape
             #[0] - I shape data
             #[1] - J,L,S,T,Z shape data
             #[X,0] 0->1
@@ -213,46 +214,48 @@ class piece(sprite):
             #[X,7] 0->3
             bigtests=[ [ [ [0,0],[-2,0],[1,0],[-2,1],[1,2] ],[ [0,0],[2,0],[-1,0],[2,1],[-1,2] ],[ [0,0],[-1,0],[2,0],[-1,2],[2,-1] ],[ [0,0],[1,0],[-2,0],[1,-2],[-2,1] ],[ [0,0],[2,0],[-1,0],[2,1],[-1,-2] ],[ [0,0],[-2,0],[1,0],[-2,-1],[1,2] ],[ [0,0],[1,0],[-2,0],[1,-2],[-2,1] ],[ [0,0],[-1,0],[2,0],[-1,2],[2,-1] ] ]
                        , [ [ [0,0],[-1,0],[-1,1],[0,-2],[-1,2] ],[ [0,0],[1,0],[1,-1],[0,2],[1,2] ],[ [0,0],[1,0],[1,-1],[0,2],[1,2] ],[ [0,0],[-1,0],[-1,1],[0,-2],[-1,-2] ],[ [0,0],[1,0],[1,1],[0,-2],[1,-2] ],[ [0,0],[-1,0],[-1,-1],[0,2],[-1,2] ],[ [0,0],[-1,0],[-1,-1],[0,2],[-1,2] ],[ [0,0],[1,0],[1,1],[0,-2],[1,-2] ] ] ]
-            tests=[]
             a=0
             b=0
             if self.shape=="I":
-                a=0 
+                a=0 #First dimension of the bigtests determines whether the block is an I block or the other types
             else:
                 a=1
-            if self.rot==0:
+            if self.rot==0: #0->something
                 if rotdir==1:
-                    b=0
+                    b=0 # 0->1
                 else:
-                    b=7
-            elif self.rot==1:
+                    b=7 #0->3
+            elif self.rot==1: #1->something
                 if rotdir==1:
-                    b=2
+                    b=2 #1->2
                 else:
-                    b=1
-            elif self.rot==2:
+                    b=1 #1->0
+            elif self.rot==2: #2->something
                 if rotdir==1:
-                    b=4
+                    b=4 #2->3
                 else:
-                    b=3
-            elif self.rot==3:
+                    b=3 #2->1
+            elif self.rot==3: #3->something
                 if rotdir==1:
-                    b=6
+                    b=6 #3->4
                 else:
-                    b=5
-            tests=bigtests[a][b]
-            i=0
-            checking=True
-            self.rot+=rotdir
-            self.updateShape()
+                    b=5 #3->2
+            tests=bigtests[a][b] #assigns tests to the list of tests you have to do for that rotation for that shape
+            i=0 #i is used as a counter to go through the tests
+            checking=True #checking is used to exit the loop
+            self.eraseSprite() #erases the sprite before a decision is made
+            self.rot=(self.rot+rotdir)%4 #Increments or decrements the rotation and takes the modulus of 4 so that it remains within 0 to 3
+            self.updateShape() #Updates the shapes pixel data DOES NOT DRAW IT YET
             while checking:
                 if self.checkTranslation(grid,tests[i]):
                     self.translatePiece(tests[i])
                     checking=False
                 elif i==4:
-                    self.rot+=(-rotdir)
+                    self.rot=(self.rot-rotdir)%4
                     self.updateShape()
+                    self.drawSprite()
                     checking=False
+                i+=1
 
 class character(piece):
     #the letter class is like the shape but instead of strings defining the shape, they are defined by integers from 0 to 25 so that they can be scrolled through later
@@ -581,47 +584,103 @@ def runMenu():
         print("Running scores")
         runScores()
 
-    removeSprites(items)
-
 def runGame():
     items=[sprite("grid",[],[0,0])]
     score=0
     gameover=False
     T=0.5
     userin=""
-    allpieces=[piece("iPiece","I",[6,20],0),piece("jPiece","J",[6,20],0),piece("lPiece","L",[6,20],0),piece("sPiece","S",[6,20],0),piece("oPiece","O",[6,20],0),piece("zPiece","Z",[6,20],0),piece("tPiece","T",[6,20],0)]
-    nextpiece=random.choice(allpieces)
-    pick=0
+    #allpieces contains a list of all the possible tetris pieces that can be spawned I,J,L,S,O,Z,T
+    allpieces=[piece("I Piece","I",[6,20],0),piece("J Piece","J",[6,20],0),piece("L Piece","L",[6,20],0),piece("S Piece","S",[6,20],0),piece("O Piece","O",[6,20],0),piece("Z Piece","Z",[6,20],0),piece("T Piece","T",[6,20],0)]
+    #Shuffles then list of all pieces
+    random.shuffle(allpieces)
+    #Nextpiece stores the piece (by reference) that will be next 
+    nextpiece=random.choice(allpieces) #Randomly picks the piece that will be first
+    #Pick is a counter that goes through all the pieces  
+    pick=-1
     print("Press start to begin")
-    while(userin!="START"):
+    while(userin!="START"): #Waits for the user to press start before beginning the game
         userin=waitForInput(gamePad,0)
-    while(not gameover):
-        items.append(copy.copy(nextpiece))
-        drawItems(items)
-        if pick<0:
-            random.shuffle(allpieces)
-            pick=6
+    while(not gameover): #Starts the game loop until gameover is set to true
+        items.append(copy.deepcopy(nextpiece)) #Adds a by value copy of next piece to the items array
+        drawItems(items) #draws the grid and the new piece at the top
+        if pick<0: #if pick has decremented past the list
+            random.shuffle(allpieces) #the list is shuffled again
+            pick=6 #pick is reset to the first value
         nextpiece=allpieces[pick]
-        print("PREVIEW: "+nextpiece.name)
+        print("PREVIEW: "+nextpiece.name) #Previews the next piece to be set
         pick+=-1
         moving=True
         while(moving):
             userin=waitForInput(gamePad,T)
             #CONTROL STUFF
             if userin=="UP":
+                print("Attempting rotation")
                 items[1].rotatePiece(items[0],1)
             elif userin=="DOWN":
                 items[1].rotatePiece(items[0],-1)
+                print("Attempting rotation")
+            elif userin=="LEFT":
+                if items[1].checkTranslation(items[0],[-1,0]):
+                    items[1].translatePiece([-1,0])
+            elif userin=="RIGHT":
+                if items[1].checkTranslation(items[0],[1,0]):
+                    items[1].translatePiece([1,0])
+            elif userin=="A":
+                while userin=="A":
+                    if items[1].checkTranslation(items[0],[0,-1]):
+                        items[1].translatePiece([0,-1])
+                    userin=waitForInput(gamePad,0.1)
+            elif userin=="B":
+                a=0
+                while(items[1].checkTranslation(items[0],[0,a-1])):
+                    a+=-1
+                items[1].translatePiece([0,a])
             
             if items[1].checkTranslation(items[0],[0,-1]):
                 items[1].translatePiece([0,-1])
                 #Also need to check for out of bounds
             else:
                 moving=False
+            if not (items[1].checkTranslation(items[0],[0,0])):
+                moving=False
         for pixel in items[1].pixels:
-            items[0].pixels+=[[pixel[0]+items[1].location[0],pixel[1]+items[1].location[1],pixel[2]]]
-        items[1].eraseSprite()
+            #Transfers all the pixels from the current piece to the grid
+            items[0].pixels.append([pixel[0]+items[1].location[0],pixel[1]+items[1].location[1],pixel[2]])
+            if(pixel[1]+items[1].location[1]>19):
+                gameover=True
         del items[1]
+        #Row checking and deletion:
+        #Because the pixels stored in the grid shape are unsorted, i'm using the pixel array and interpreting that to find rows that are full
+        #If a row is found to be full the score is incremented and the pixels above are moved down this is repeated until a row isnt found that can be removed
+        #When the score is incremented, it checks if it has passed a multiple of 5 and if it has then it will decrease the time it waits for inputs
+        i=0
+        while i<=19:
+            if temparray[i]=="############\n":
+                items[0].eraseSprite()
+                j=0
+                maxi=len(items[0].pixels)-1
+                while j<=maxi:
+                    if items[0].pixels[j][1]==i:
+                        del(items[0].pixels[j])
+                        j+=-1
+                        maxi+=-1
+                    elif items[0].pixels[j][1]>i:
+                        items[0].pixels[j][1]+=-1
+                    j+=1
+                items[0].drawSprite()
+                i+=-1
+                score+=1
+                if (score%5==0):
+                    T=T*0.8
+                print("score= "+str(score))
+            i+=1
+
+    print("Gameover, score was:"+str(score))
+    removeSprites(items)
+    items=None
+        
+    
 def runScores():
     items=[]
 
